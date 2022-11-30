@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Inititla setup
+      - name: Initial setup
         uses: .github/action
       - name: Try
         run: yarn try
