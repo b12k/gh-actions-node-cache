@@ -3,6 +3,9 @@ name: Yarn
 on:
   workflow_dispatch:
 
+env:
+  YARN_CACHE_FOLDER: node_modules/.yarn
+
 jobs:
   step-1:
     runs-on: ubuntu-latest
