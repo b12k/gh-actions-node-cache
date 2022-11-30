@@ -12,7 +12,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 16
       - name: 'Install Dependencies (no flags)'
         run: yarn --frozen-lockfile --ignore-scripts
   no-cache-prefer-offline:
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 16
       - name: 'Install Dependencies (no flags)'
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
   node-cache:
@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
-          node-version: 18
+          node-version: 16
       - name: 'Install Dependencies (no flags)'
         run: yarn --frozen-lockfile --ignore-scripts
   node-cache-prefer-offline:
@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           cache: yarn
-          node-version: 18
+          node-version: 16
       - name: 'Install Dependencies (prefer offline)'
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
   dedicated-cache:
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 16
       - name: Setup Cache
         uses: actions/cache@v3
         with:
@@ -75,7 +75,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 16
       - name: Setup Cache
         uses: actions/cache@v3
         with:
