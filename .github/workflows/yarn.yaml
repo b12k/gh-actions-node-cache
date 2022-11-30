@@ -19,7 +19,7 @@ jobs:
           path: node_modules
           key: yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: yarn-
-      - name: Install Dependencies (prefer offline)
+      - name: Install Dependencies
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
       - name: Run Try
   step-2:
@@ -37,6 +37,7 @@ jobs:
           path: node_modules
           key: yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: yarn-
-      - name: Install Dependencies (prefer offline)
+      - name: Install Dependencies
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
       - name: Run Try
+        run: yarn try
