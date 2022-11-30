@@ -2,8 +2,6 @@ name: Initial setup
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v3
     - name: Setup Node
       uses: actions/setup-node@v2
         with:
