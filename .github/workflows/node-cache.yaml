@@ -3,14 +3,6 @@ name: Node Cache
 on:
   workflow_dispatch:
     inputs:
-      job:
-        description: 'Caching strategy'
-        required: true
-        type: choice
-        options:
-        - no-cache
-        - node-cache
-        - dedicated-cache
       yarn:
         description: 'Yarn flags'
         required: true
@@ -21,7 +13,6 @@ on:
 
 jobs:
   no-cache:
-    if: github.event.inputs.job == 'no-cache'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,7 +28,6 @@ jobs:
         if: github.event.inputs.yarn == 'prefer-offline'
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
   node-cache:
-    if: github.event.inputs.job == 'node-cache'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,7 +35,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          cache: true
+          cache: yarn
           node-version: 18
       - name: 'Install Dependencies (no flags)'
         if: github.event.inputs.yarn == 'no-flags'
@@ -54,7 +44,6 @@ jobs:
         if: github.event.inputs.yarn == 'prefer-offline'
         run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
   dedicated-cache:
-    if: github.event.inputs.job == 'dedicated-cache'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
