@@ -8,8 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     name: try
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Initial setup
-        uses: b12k/gh-actions-node-cache/action.yaml@master
+        uses: ./.github/actions/node-setup
       - name: Try
         run: yarn try
     
