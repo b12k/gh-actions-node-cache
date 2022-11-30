@@ -1,35 +1,6 @@
 {
-  "name": "mars-mms-webapp",
-  "private": true,
-  "engines": {
-    "node": "16",
-    "npm": "Use yarn"
-  },
   "scripts": {
-    "analyze": "cross-env ANALYZE=true next build",
-    "build": "layer0 build",
-    "clean": "npm run clean:layer0 && npm run clean:next && npm run clean:node",
-    "clean:layer0": "rimraf **/.layer0",
-    "clean:next": "rimraf **/.next",
-    "clean:node": "rimraf **/node_modules",
-    "cz": "cz",
-    "deploy": "layer0 deploy --team mars-mms",
-    "dev": "layer0 dev",
-    "dev-cached": "layer0 dev --cache",
-    "prod": "layer0 run --production",
-    "generate": "graphql-codegen --config codegen.yml",
-    "husky:commit-msg": "commitlint",
-    "lint": "next lint",
-    "prepare": "husky install",
-    "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write --list-different .",
-    "start": "next start",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "tsc": "tsc --noEmit --skipLibCheck --esModuleInterop",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "lint-test-typecheck": "run-p lint test tsc"
+    "try": "echo \"It works!\""
   },
   "dependencies": {
     "@adyen/adyen-web": "5.24.0",
