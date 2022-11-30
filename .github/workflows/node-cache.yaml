@@ -1,18 +1,77 @@
 name: Node Cache
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Caching strategy'
+        required: true
+        type: choice
+        options:
+        - no-cache
+        - node-cache
+        - dedicated-cache
+      yarn:
+        description: 'Yarn flags'
+        required: true
+        type: choice
+        options:
+        - no-flags
+        - prefer-offline
 
 jobs:
-  test-default-cache:
+  no-cache:
+    if: github.event.inputs.job == 'no-cache'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          cache: yarn
           node-version: 18
-      - name: Install Dependencies
-        run: yarn
+      - name: 'Install Dependencies (no flags)'
+        if: github.event.inputs.job == 'no-flags'
+        run: yarn --frozen-lockfile --ignore-scripts
+      - name: 'Install Dependencies (prefer offline)'
+        if: github.event.inputs.job == 'prefer-offline'
+        run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
+  node-cache:
+    if: github.event.inputs.job == 'node-cache'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: true
+          node-version: 18
+      - name: 'Install Dependencies (no flags)'
+        if: github.event.inputs.job == 'no-flags'
+        run: yarn --frozen-lockfile --ignore-scripts
+      - name: 'Install Dependencies (prefer offline)'
+        if: github.event.inputs.job == 'prefer-offline'
+        run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
+  dedicated-cache:
+    if: github.event.inputs.job == 'dedicated-cache'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - name: Setup Cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: yarn-
+      - name: 'Install Dependencies (no flags)'
+        if: github.event.inputs.job == 'no-flags'
+        run: yarn --frozen-lockfile --ignore-scripts
+      - name: 'Install Dependencies (prefer offline)'
+        if: github.event.inputs.job == 'prefer-offline'
+        run: yarn --frozen-lockfile --ignore-scripts --prefer-offline
